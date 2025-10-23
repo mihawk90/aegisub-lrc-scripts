@@ -6,6 +6,20 @@ script_author = "ema"
 script_version = "1"
 ---@diagnostic enable: lowercase-global
 
+
+--
+--	Utility functions
+--
+
+---checks whether a given string ends with a substring<br>
+---https://stackoverflow.com/a/72921992/3323286
+---@param self string
+---@param suffix string
+---@return boolean
+function string:endswith(suffix)
+    return self:sub(-#suffix) == suffix
+end
+
 ---Strip LRC-invalid characters (newlines) and ASS tags
 ---@param text string
 ---@return string
@@ -39,8 +53,12 @@ local function to_timecode(time_ms)
 	return string.format('%02d:%02d.%02d', m, s, ms)
 end
 
----Format final LRC line
----combines timestamp and text
+--
+--	LRC Generation
+--
+
+---Format final LRC line<br>
+---combines formatted timestamp and text
 ---@param start_time integer
 ---@param text string
 ---@return string
@@ -48,37 +66,18 @@ local function to_lrc_line(start_time, text)
 	return string.format('[%s]%s\n', to_timecode(start_time), text)
 end
 
----checks whether a given string ends with a substring
----TODO: This can be shortened instead of reversing 2 strings
----https://stackoverflow.com/a/72921992/3323286
----@param str any
----@param substr any
----@return boolean
-local function endswith(str, substr)
-	if str == nil or substr == nil then
-		return false
-	end
-	local str_tmp = string.reverse(str)
-	local substr_tmp = string.reverse(substr)
-	if string.find(str_tmp, substr_tmp) ~= 1 then
-		return false
-	else
-		return true
-	end
-end
-
 ---Requests a file, checks extension, then opens file descriptor and writes UTF-8 BOM
----@param extension string
+---@param extension string including dot
 ---@return file*?
 local function start_lyrics_file(extension)
-	local filename = aegisub.dialog.save('Save Lyric File', '', '', string.format('Lyrics File (*.%s)|*.%s',extension,extension))
+	local filename = aegisub.dialog.save('Save Lyric File', '', '', string.format('Lyrics File (*%s)|*%s',extension,extension))
 	
 	if not filename then
 		aegisub.cancel()
 	end
-	
-	if endswith(string.lower(filename), '.lrc') == false then
-		filename = filename .. '.lrc'
+
+	if string.lower(filename):endswith(extension) ~= extension then
+		filename = filename .. extension
 	end
 
 	local output_file = io.open(filename, 'w+')
@@ -93,13 +92,13 @@ local function start_lyrics_file(extension)
 	return output_file
 end
 
----main macro function
+---main macro function<br>
 ---requests a file descriptor and writes the lines
----TODO: Add .elrc extension
+---<br><br>TODO: Add .elrc extension
 ---@param subs table
 ---@param sel table
 local function ass_to_lrc(subs, sel)
-	local output_file = start_lyrics_file("lrc")
+	local output_file = start_lyrics_file(".lrc")
 
 	for i = 1, #subs, 1 do
 		local line = subs[i]
