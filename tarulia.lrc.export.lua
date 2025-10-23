@@ -103,8 +103,7 @@ local function ass_to_lrc(subs, sel)
 
 	for i = 1, #subs, 1 do
 		local line = subs[i]
-		-- TODO: Filter out line.comment to allow actual comments in the file
-		if line.class == 'dialogue' then
+		if line.class == 'dialogue' and line.comment == false then
 			---@diagnostic disable-next-line: need-check-nil -- canceled in start_lyrics_file
 			output_file:write(to_lrc_line(line.start_time, strip_tags(line.text)))
 		end

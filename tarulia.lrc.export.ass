@@ -16,7 +16,8 @@ Style: Default,Arial,48,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Comment: 1,0:00:11.51,0:00:21.43,Default,,0,0,0,,{\k42}sek{\k21}ka{\k50}ku {\k25}ha{\k50}re{\k42}ta {\k21}{\k25}ka{\k42}ra {\k121}tte{\k71} {\k21}i{\k21}i{\k46}wa{\k21}ke {\k54}o {\k21}hi{\k42}to{\k50}tsu {\k21}ho{\k25}u{\k21}ri{\k25}na{\k117}ge
+Dialogue: 0,0:00:11.51,0:00:21.43,Default,,0,0,0,,{\k42}sek{\k21}ka{\k50}ku {\k25}ha{\k50}re{\k42}ta {\k21}{\k25}ka{\k42}ra {\k121}tte{\k71} {\k21}i{\k21}i{\k46}wa{\k21}ke {\k54}o {\k21}hi{\k42}to{\k50}tsu {\k21}ho{\k25}u{\k21}ri{\k25}na{\k117}ge
+Comment: 0,1:10:21.43,1:10:21.43,Default,,0,0,0,,This line is dropped
 Dialogue: 0,1:10:21.43,1:10:21.43,Default,,0,0,0,,1h+
 Dialogue: 0,2:10:21.43,2:10:21.43,Default,,0,0,0,,2h+
 Dialogue: 0,2:10:25.43,2:10:25.43,Default,,0,0,0,,{End of Lyrics}
