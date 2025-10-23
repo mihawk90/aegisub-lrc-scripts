@@ -76,7 +76,7 @@ local function start_lyrics_file(extension)
 		aegisub.cancel()
 	end
 
-	if string.lower(filename):endswith(extension) ~= extension then
+	if string.lower(filename):endswith(extension) ~= true then
 		filename = filename .. extension
 	end
 
