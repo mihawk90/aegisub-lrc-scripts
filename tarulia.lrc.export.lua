@@ -72,13 +72,11 @@ local function endswith(str, substr)
 	end
 end
 
----main macro function
----requests a file descriptor and writes the lines
----TODO: Add .elrc extension
----@param subs any
----@param sel any
-local function ass_to_lyric(subs, sel)
-	local filename = aegisub.dialog.save('Save Lyric File', '', '', 'Lyrics File(*lrc)|*lrc')
+---Requests a file, checks extension, then opens file descriptor and writes UTF-8 BOM
+---@param extension string
+---@return file*?
+local function start_lyrics_file(extension)
+	local filename = aegisub.dialog.save('Save Lyric File', '', '', string.format('Lyrics File (*.%s)|*.%s',extension,extension))
 	
 	if not filename then
 		aegisub.cancel()
@@ -94,17 +92,31 @@ local function ass_to_lyric(subs, sel)
 		aegisub.cancel()
 	end
 
----@diagnostic disable: need-check-nil -- Execution is canceled above
+		---@diagnostic disable-next-line: need-check-nil -- canceled above
 		output_file:write(utf8_bom())
 
-		for i = 1, #subs, 1 do
-			local line = subs[i]
-			if line.class == 'dialogue' then
-				output_file:write(to_lrc_line(line.start_time, strip_tags(line.text)))
-			end
-		end
-	output_file:close()
----@diagnostic enable: need-check-nil
+	return output_file
 end
 
-aegisub.register_macro(script_name, script_description, ass_to_lyric)
+---main macro function
+---requests a file descriptor and writes the lines
+---TODO: Add .elrc extension
+---@param subs table
+---@param sel table
+local function ass_to_lrc(subs, sel)
+	local output_file = start_lyrics_file("lrc")
+
+	for i = 1, #subs, 1 do
+		local line = subs[i]
+		-- TODO: Filter out line.comment to allow actual comments in the file
+		if line.class == 'dialogue' then
+			---@diagnostic disable-next-line: need-check-nil -- canceled in start_lyrics_file
+			output_file:write(to_lrc_line(line.start_time, strip_tags(line.text)))
+		end
+	end
+
+	---@diagnostic disable-next-line: need-check-nil -- canceled in start_lyrics_file
+	output_file:close()
+end
+
+aegisub.register_macro(script_name, script_description, ass_to_lrc)
