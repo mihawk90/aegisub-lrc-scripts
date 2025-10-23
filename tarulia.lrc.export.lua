@@ -26,8 +26,6 @@ local function utf8_bom()
 end
 
 ---Takes a time in ms and returns a timecode in mm:ss.ss
----Maxes out at 59:59.99
----TODO: re-add hours in minutes
 ---@param time_ms integer
 ---@return string
 local function to_timecode(time_ms)
@@ -36,11 +34,8 @@ local function to_timecode(time_ms)
 	local m = math.floor(time_sec % 3600 / 60)
 	local s = math.floor(time_sec % 60)
 	local ms = math.floor( ((time_sec % 60) - math.floor(time_sec % 60)) * 100 )
-	if h >= 1 then
-		m = 59
-		s = 59
-		ms = 99
-	end
+	aegisub.log(4,'timesec: %s | h: %s | m: %s | s: %s | ms: %s\n', time_sec, h, m, s, ms)
+	m = m + h * 60
 	return string.format('%02d:%02d.%02d', m, s, ms)
 end
 
