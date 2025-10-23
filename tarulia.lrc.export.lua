@@ -1,5 +1,5 @@
 local tr = aegisub.gettext
-script_name = tr"Export Lyric File"
+script_name = tr"LRC/Export File (Dev)"
 script_description = tr"Export Lyric File For Aegisub"
 script_author = "ema"
 script_version = "1"
@@ -15,10 +15,6 @@ end
 local function lrc_header()
 	return table.concat( {
 		string.char(239, 187, 191), -- UTF8-BOM: EF BB BF
-		'[ti:None]\n',
-		'[ar:None]\n',
-		'[al:None]\n',
-		'[by:aegisub]\n',
 	} )
 end
 
