@@ -6,6 +6,9 @@ script_author = "ema"
 script_version = "1"
 ---@diagnostic enable: lowercase-global
 
+---Strip LRC-invalid characters (newlines) and ASS tags
+---@param text string
+---@return string
 local function strip_tags(text)
 	text = text:gsub('{[^}]+}', '')
 	text = text:gsub('\\N', '')
@@ -14,12 +17,19 @@ local function strip_tags(text)
 	return text
 end
 
-local function lrc_header()
+---Insert UTF-8 BOM
+---@return string
+local function utf8_bom()
 	return table.concat( {
 		string.char(239, 187, 191), -- UTF8-BOM: EF BB BF
 	} )
 end
 
+---Takes a time in ms and returns a timecode in mm:ss.ss
+---Maxes out at 59:59.99
+---TODO: re-add hours in minutes
+---@param time_ms integer
+---@return string
 local function to_timecode(time_ms)
 	local time_sec = time_ms / 1000
 	local h = math.floor(time_sec / 3600)
@@ -34,10 +44,21 @@ local function to_timecode(time_ms)
 	return string.format('%02d:%02d.%02d', m, s, ms)
 end
 
+---Format final LRC line
+---combines timestamp and text
+---@param start_time integer
+---@param text string
+---@return string
 local function to_lrc_line(start_time, text)
 	return string.format('[%s]%s\n', to_timecode(start_time), text)
 end
 
+---checks whether a given string ends with a substring
+---TODO: This can be shortened instead of reversing 2 strings
+---https://stackoverflow.com/a/72921992/3323286
+---@param str any
+---@param substr any
+---@return boolean
 local function endswith(str, substr)
 	if str == nil or substr == nil then
 		return false
@@ -51,6 +72,11 @@ local function endswith(str, substr)
 	end
 end
 
+---main macro function
+---requests a file descriptor and writes the lines
+---TODO: Add .elrc extension
+---@param subs any
+---@param sel any
 local function ass_to_lyric(subs, sel)
 	local filename = aegisub.dialog.save('Save Lyric File', '', '', 'Lyrics File(*lrc)|*lrc')
 	
@@ -69,7 +95,7 @@ local function ass_to_lyric(subs, sel)
 	end
 
 ---@diagnostic disable: need-check-nil -- Execution is canceled above
-		output_file:write(lrc_header())
+		output_file:write(utf8_bom())
 
 		for i = 1, #subs, 1 do
 			local line = subs[i]
