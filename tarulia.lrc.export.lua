@@ -92,9 +92,13 @@ local function start_lyrics_file(extension)
 	return output_file
 end
 
----main macro function<br>
----requests a file descriptor and writes the lines
----<br><br>TODO: Add .elrc extension
+--
+-- Register Macro functions
+--
+
+---Macro: LRC<br>
+---requests a file descriptor and writes the lines<br>
+---LRC - Strips k-timings
 ---@param subs table
 ---@param sel table
 local function ass_to_lrc(subs, sel)
@@ -112,4 +116,25 @@ local function ass_to_lrc(subs, sel)
 	output_file:close()
 end
 
-aegisub.register_macro(script_name, script_description, ass_to_lrc)
+---Macro: eLRC<br>
+---requests a file descriptor and writes the lines<br>
+---eLRC - Includes k-timings as angle-bracket tags
+---@param subs table
+---@param sel table
+local function ass_to_elrc(subs, sel)
+	local output_file = start_lyrics_file(".elrc")
+
+	-- for i = 1, #subs, 1 do
+	-- 	local line = subs[i]
+	-- 	if line.class == 'dialogue' and line.comment == false then
+	-- 		---@diagnostic disable-next-line: need-check-nil -- canceled in start_lyrics_file
+	-- 		output_file:write(to_lrc_line(line.start_time, strip_tags(line.text)))
+	-- 	end
+	-- end
+
+	---@diagnostic disable-next-line: need-check-nil -- canceled in start_lyrics_file
+	output_file:close()
+end
+
+aegisub.register_macro(script_name .. ' - LRC', script_description, ass_to_lrc)
+aegisub.register_macro(script_name .. ' - eLRC', script_description, ass_to_elrc)
