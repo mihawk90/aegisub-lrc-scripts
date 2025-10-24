@@ -1,8 +1,8 @@
 local tr = aegisub.gettext
 ---@diagnostic disable: lowercase-global --  Aegisub requires lowercase
-script_name = tr"LRC/Export File (Dev)"
+script_name = tr"LRC/Export File"
 script_description = tr"Export Lyric File For Aegisub"
-script_author = "ema"
+script_author = "Tarulia & ema"
 script_version = "1"
 ---@diagnostic enable: lowercase-global
 
@@ -123,8 +123,8 @@ local function start_lyrics_file(extension)
 		aegisub.cancel()
 	end
 
-		---@diagnostic disable-next-line: need-check-nil -- canceled above
-		output_file:write(utf8_bom())
+	---@diagnostic disable-next-line: need-check-nil -- canceled above
+	output_file:write(utf8_bom())
 
 	return output_file
 end
@@ -209,5 +209,5 @@ local function ass_to_elrc(subs, sel)
 	aegisub.log(3, 'eLRC Export finished')
 end
 
-aegisub.register_macro(script_name .. ' - LRC', script_description, ass_to_lrc)
-aegisub.register_macro(script_name .. ' - eLRC', script_description, ass_to_elrc)
+aegisub.register_macro(script_name .. ' - LRC', script_description .. ' - Simple LRC format', ass_to_lrc)
+aegisub.register_macro(script_name .. ' - eLRC', script_description .. ' - Enhanced LRC format', ass_to_elrc)
