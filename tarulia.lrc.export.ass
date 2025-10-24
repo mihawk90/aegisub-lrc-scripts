@@ -16,8 +16,23 @@ Style: Default,Arial,48,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 0,0:00:11.51,0:00:21.43,Default,,0,0,0,,{\k42}sek{\k21}ka{\k50}ku {\k25}ha{\k50}re{\k42}ta {\k21}{\k25}ka{\k42}ra {\k121}tte{\k71} {\k21}i{\k21}i{\k46}wa{\k21}ke {\k54}o {\k21}hi{\k42}to{\k50}tsu {\k21}ho{\k25}u{\k21}ri{\k25}na{\k117}ge
+Comment: 0,0:00:11.51,0:00:21.43,Default,,0,0,0,,{\k42}sek{\k21}ka{\k50}ku {\k25}ha{\k50}re{\k42}ta {\k21}{\k25}ka{\k42}ra {\k121}tte{\k71} {\k21}i{\k21}i{\k46}wa{\k21}ke {\k54}o {\k21}hi{\k42}to{\k50}tsu {\k21}ho{\k25}u{\k21}ri{\k25}na{\k117}ge
 Comment: 0,1:10:21.43,1:10:21.43,Default,,0,0,0,,This line is dropped
+Comment: 0,1:10:21.43,1:10:21.43,Default,,0,0,0,,1h+
+Comment: 0,2:10:21.43,2:10:21.43,Default,,0,0,0,,2h+
+Comment: 0,2:10:25.43,2:10:25.43,Default,,0,0,0,,{End of Lyrics}
+Dialogue: 0,0:00:14.45,0:00:20.81,Default,,0,0,0,,{\k24}I {\k25}was {\k116}raised {\k35}by {\k123}wolves, {\k27}I {\k20}was {\k114}born {\k22}to {\k137}lead
+Dialogue: 0,0:00:20.81,0:00:27.43,Default,,0,0,0,,{\k18}And {\k15}I {\k140}starve {\k28}'til {\k58}there's {\k74}no {\k75}more {\k92}mouth {\k17}to {\k137}feed
+Dialogue: 0,0:00:27.43,0:00:33.62,Default,,0,0,0,,{\k31}There's {\k23}a {\k80}hand {\k30}on {\k33}my {\k96}throat{\k35} {\k17}and {\k16}a {\k89}blade {\k28}at {\k29}my {\k112}feet
+Comment: 0,0:00:34.37,0:00:39.83,Default,,0,0,0,,But the weight of the world won't bend my knees
+Comment: 0,0:00:39.83,0:00:42.85,Default,,0,0,0,,Broken bones, battle scars
+Comment: 0,0:00:42.85,0:00:45.95,Default,,0,0,0,,I have seen the bloodshed
+Comment: 0,0:00:46.05,0:00:49.89,Default,,0,0,0,,Carved in stone, when it's my sword
+Comment: 0,0:00:50.14,0:00:54.00,Default,,0,0,0,,They won't forget
+Comment: 0,0:00:55.03,0:01:00.90,Default,,0,0,0,,No war, no peace 'til I lead them all (no war, no peace, lead them all)
+Comment: 0,0:01:01.42,0:01:07.91,Default,,0,0,0,,Leave me with my demons, hear my voice call (my demons, voice call)
+Comment: 0,0:01:07.91,0:01:14.12,Default,,0,0,0,,No fears or sorrows underneath these bones
+Comment: 0,0:01:14.12,0:01:21.31,Default,,0,0,0,,Just blood, sweat, and tears is all I know
 Dialogue: 0,1:10:21.43,1:10:21.43,Default,,0,0,0,,1h+
 Dialogue: 0,2:10:21.43,2:10:21.43,Default,,0,0,0,,2h+
 Dialogue: 0,2:10:25.43,2:10:25.43,Default,,0,0,0,,{End of Lyrics}
