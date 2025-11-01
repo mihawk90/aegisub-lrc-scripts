@@ -72,24 +72,6 @@ local function dump(o)
    end
 end
 
----dump an entire table with values<br>
----necessary for big tables that run into a stack overflow<br>
----https://stackoverflow.com/a/27028488/3323286
----@param o table
----@return string
-local function dump_full(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump_full(v) .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
-end
-
 --
 --	LRC Generation
 --
@@ -168,14 +150,10 @@ local function ass_to_elrc(subs, sel)
 	for lineCounter = 1, #subs, 1 do
 		local line = subs[lineCounter]
 
-		--aegisub.log(3, 'type(line): %s\n', type(line))
 		if line.class == 'dialogue' and line.comment == false then
 			aegisub.log(5, 'BEFORE preproc_line_text\n')
-			aegisub.log(5, 'dump_full(line):\n%s\n\n', dump_full(line))
 			karaskel.preproc_line_text(meta, styles, line)
 			aegisub.log(5, 'AFTER preproc_line_text\n')
-			aegisub.log(5, 'dump_full(line):\n%s\n\n', dump_full(line))
-			aegisub.log(5, 'dump_full(line.kara):\n%s\n\n', dump_full(line.kara))
 
 			local elrcLine = ''
 			local syl
@@ -184,11 +162,6 @@ local function ass_to_elrc(subs, sel)
 				aegisub.log(5, '\nline.start_time: %s\n', line.start_time)
 				aegisub.log(5, 'sylCounter: %s\n', sylCounter)
 				aegisub.log(5, 'dump(syl):\n%s\n', dump(syl))
-				aegisub.log(5, 'dump_full(syl.duration): %s\n', dump_full(syl.duration))
-				aegisub.log(5, 'dump_full(syl.kdur): %s\n', dump_full(syl.kdur))
-				aegisub.log(5, 'dump_full(syl.start_time): %s\n', dump_full(syl.start_time))
-				aegisub.log(5, 'dump_full(syl.end_time): %s\n', dump_full(syl.end_time))
-				aegisub.log(5, 'dump_full(syl.text): %s\n', dump_full(syl.text))
 				elrcLine = string.format('%s<%s>%s<%s>',
 							elrcLine,
 							to_timecode(line.start_time + syl.start_time),
