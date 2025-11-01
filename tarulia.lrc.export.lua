@@ -162,11 +162,10 @@ local function ass_to_elrc(subs, sel)
 				aegisub.log(5, '\nline.start_time: %s\n', line.start_time)
 				aegisub.log(5, 'sylCounter: %s\n', sylCounter)
 				aegisub.log(5, 'dump(syl):\n%s\n', dump(syl))
-				elrcLine = string.format('%s<%s>%s<%s>',
+				elrcLine = string.format('%s<%s>%s',
 							elrcLine,
 							to_timecode(line.start_time + syl.start_time),
-							syl.text,
-							to_timecode(line.start_time + syl.end_time)
+							strip_tags(syl.text)
 						   )
 			end
 			aegisub.log(4, 'elrcLine: %s\n', elrcLine)
