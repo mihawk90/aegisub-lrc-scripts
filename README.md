@@ -23,6 +23,7 @@ After that, you can time words or individual syllables in Karaoke mode.
 
 You can find an introduction to Karaoke timing here:
 [Karaoke Timing Tutorial](https://aegisub.org/docs/latest/karaoke_timing_tutorial/)
+A more comprehensive guide on Karaoke timing can be found [in Karaoke Mugen's documentation](https://docs.karaokes.moe/contrib-guide/create-karaoke/karaoke/index.html)
 
 ### Export
 
