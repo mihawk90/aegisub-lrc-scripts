@@ -1,4 +1,6 @@
 local tr = aegisub.gettext
+local re = require 'aegisub.re'
+
 ---@diagnostic disable: lowercase-global --  Aegisub requires lowercase
 script_name = tr"LRC/Export File"
 script_description = tr"Export Lyric File For Aegisub"
@@ -89,8 +91,11 @@ end
 ---@param extension string including dot
 ---@return file*?
 local function start_lyrics_file(extension)
-	local filename = aegisub.dialog.save('Save Lyric File', '', '', string.format('Lyrics File (*%s)|*%s',extension,extension))
-	
+	local file = re.sub(aegisub.file_name(), '.ass', extension)
+	local path = aegisub.decode_path("?script")
+
+	local filename = aegisub.dialog.save('Save Lyric File', path, file, string.format('Lyrics File (*%s)|*%s',extension,extension))
+
 	if not filename then
 		aegisub.cancel()
 	end
@@ -103,10 +108,9 @@ local function start_lyrics_file(extension)
 	if not output_file then
 		aegisub.debug.out('Failed to open file')
 		aegisub.cancel()
+	else
+		output_file:write(utf8_bom())
 	end
-
-	---@diagnostic disable-next-line: need-check-nil -- canceled above
-	output_file:write(utf8_bom())
 
 	return output_file
 end
